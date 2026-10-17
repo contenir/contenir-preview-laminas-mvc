@@ -271,7 +271,7 @@ final class PreviewListenerTest extends TestCase
     }
 
     #[Test]
-    public function opensAPostedPreviewAsAVisitToItsPage(): void
+    public function opensAPostedPreviewAsAVisitToItsPageLeavingTheRoutingToTheRouter(): void
     {
         $context = new PreviewContext();
         $event   = $this->posted(new Parameters(['contenir_preview' => Previews::token(new FrozenClock())]));
@@ -280,10 +280,10 @@ final class PreviewListenerTest extends TestCase
         $response = $this->listener($context)->onRoute($event);
 
         $this->assertSame(
-            [null, 'Page', true, 'GET', [], '/spa-rituals', true],
+            [null, null, false, 'GET', [], '/spa-rituals', true],
             [
                 $response,
-                $event->getRouteMatch()?->getParam('controller'),
+                $event->getRouteMatch(),
                 $event->propagationIsStopped(),
                 $request->getMethod(),
                 $request->getPost()->toArray(),

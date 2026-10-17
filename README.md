@@ -91,9 +91,12 @@ In a template, `$this->preview()` gives the same context, so a page can tell a p
 1. `EVENT_ROUTE` at priority 100, before the router: a request to `{base}/api/resource/preview` is
    opened. Anything but a valid `POST` is answered there and then with the protocol's status and a
    short page saying why.
-2. The resolved page becomes the request: a path or route is matched by the router as a visit to it
-   would be (the request moves to that address, as a `GET`, with the token's post cleared); a
-   handler is dispatched directly.
+2. The resolved page becomes the request, as a `GET` with the token's post cleared. A path or route
+   moves the request to that address, where the router must have a page; a handler, which no route
+   reaches, gets a route of its own at the preview endpoint for this request only
+   (`TargetMatcher::HANDLER_ROUTE`). The route event then carries on: the router matches the page
+   and every other route listener runs as it would on a visit, the site's own among them (such as
+   contenir-resource-laminas-mvc's, which loads the routed resource).
 3. Page caches are asked to stand aside, because a cache that keys on a `GET` to a path would
    otherwise see the preview as a visit to the page: it could serve the stored page in place of
    the preview, or store the editor's unsaved page for visitors. The application triggers
@@ -102,7 +105,7 @@ In a template, `$this->preview()` gives the same context, so a page can tell a p
    `Cache-Control: no-cache, no-store` in place of the browser's own, so a cache that follows HTTP's
    rules neither serves a stored copy nor stores the answer. A refusal is answered before this and
    never reaches a cache.
-4. The application dispatches and renders as normal.
+4. The application routes, dispatches and renders as normal.
 5. `EVENT_FINISH`: a preview's response gets the protocol's headers, replacing the page's own, and
    the badge before `</body>`.
 

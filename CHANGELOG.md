@@ -9,9 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - A Laminas MVC module that renders the Contenir CMS's previews: it opens a
-  post to `/api/resource/preview` before routing, renders the page that shows
-  the record as the application always would, and answers with the protocol's
-  headers and a visible "Preview" badge.
+  post to `/api/resource/preview` before routing, turns it into a visit to the
+  page that shows the record, which the application routes and renders as it
+  always would (every route listener included), and answers with the
+  protocol's headers and a visible "Preview" badge.
 - Section resolvers from configuration: a path, a named route, or a resolver
   service, which may dispatch a handler without routing.
 - A `preview()` view helper and controller plugin for laying the preview's

@@ -28,8 +28,9 @@ use function strcasecmp;
  *
  * Before the router runs, a post to /api/resource/preview is opened: its token verified, the page
  * that shows the record resolved, and the preview context begun. The request then becomes a plain
- * visit to that page, which the application routes and renders as it always would, while the
- * site's data layer lays the preview's values over the record. A refusal is answered at once with
+ * visit to that page, which the application routes and renders as it always would: every route
+ * listener runs, the site's own among them, while its data layer lays the preview's values over
+ * the record. A refusal is answered at once with
  * the protocol's status and a short page saying why. As the response leaves, a preview gets the
  * protocol's headers and, unless configured away, a visible "Preview" badge.
  *
@@ -105,7 +106,7 @@ final class PreviewListener extends AbstractListenerAggregate
 
             $request->setMethod(Request::METHOD_GET);
             $request->setPost(new Parameters());
-            $match = $this->matcher->match($target, $router, $request);
+            $this->matcher->prepare($target, $router, $request);
         } catch (InvalidPreview $refusal) {
             return $this->refuse($event, $refusal);
         }
@@ -114,8 +115,6 @@ final class PreviewListener extends AbstractListenerAggregate
         $headers = $request->getHeaders();
         $this->replace($headers, 'Cache-Control', self::REQUEST_CACHE_CONTROL);
         $event->getApplication()?->getEventManager()->trigger(self::CACHE_DISABLE_EVENT);
-        $event->setRouteMatch($match);
-        $event->stopPropagation(true);
 
         return null;
     }
