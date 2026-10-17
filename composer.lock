@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae2dfb61f0865e0331344468ec93d786",
+    "content-hash": "b9eb84c7fa981b41a49470e942efadd7",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -58,10 +58,16 @@
         {
             "name": "contenir/contenir-preview",
             "version": "0.1.x-dev",
-            "dist": {
-                "type": "path",
-                "url": "../contenir-preview",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contenir/contenir-preview.git",
                 "reference": "2be31a3cf271fb810fa5980310115a58ea02434f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/2be31a3cf271fb810fa5980310115a58ea02434f",
+                "reference": "2be31a3cf271fb810fa5980310115a58ea02434f",
+                "shasum": ""
             },
             "require": {
                 "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
@@ -73,6 +79,7 @@
                 "infection/infection": "^0.35.6",
                 "phpunit/phpunit": "^11.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -124,10 +131,11 @@
                 "contenir",
                 "preview"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/contenir/contenir-preview/tree/0.1.x",
+                "issues": "https://github.com/contenir/contenir-preview/issues"
+            },
+            "time": "2026-10-17T12:43:29+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -1685,10 +1693,16 @@
         {
             "name": "contenir/contenir-qa-tools",
             "version": "0.1.x-dev",
-            "dist": {
-                "type": "path",
-                "url": "../contenir-qa-tools",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contenir/contenir-qa-tools.git",
                 "reference": "b8d822b1c7370e127665cf4766d3ad77c42471ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contenir/contenir-qa-tools/zipball/b8d822b1c7370e127665cf4766d3ad77c42471ff",
+                "reference": "b8d822b1c7370e127665cf4766d3ad77c42471ff",
+                "shasum": ""
             },
             "require": {
                 "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
@@ -1696,7 +1710,9 @@
             "suggest": {
                 "phpunit/phpunit": "To run the shared test configuration (^11.5 || ^12.0)"
             },
+            "default-branch": true,
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1714,10 +1730,7 @@
             "support": {
                 "source": "https://github.com/contenir/contenir-qa-tools"
             },
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "time": "2026-10-12T10:46:59+00:00"
         },
         {
             "name": "fidry/cpu-core-counter",

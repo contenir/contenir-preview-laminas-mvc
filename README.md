@@ -1,8 +1,8 @@
 # contenir-preview-laminas-mvc
 
 Renders the Contenir CMS's previews in a Laminas MVC application: the
-[preview protocol](../contenir-preview/docs/protocol.md) from
-[`contenir/contenir-preview`](../contenir-preview), wired into the MVC's events.
+[preview protocol](https://github.com/contenir/contenir-preview/blob/0.1.x/docs/protocol.md) from
+[`contenir/contenir-preview`](https://github.com/contenir/contenir-preview), wired into the MVC's events.
 
 The CMS posts a signed token for the record being edited to `/api/resource/preview` on the site.
 This module verifies it before the router runs, works out which page shows the record, and lets the

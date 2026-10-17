@@ -23,24 +23,6 @@
         "laminas/laminas-modulemanager": "^2.15",
         "phpunit/phpunit": "^11.5"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../contenir-preview",
-            "canonical": false,
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../contenir-qa-tools",
-            "canonical": false,
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "autoload": {
         "psr-4": { "Contenir\\Preview\\Laminas\\Mvc\\": "src/" }
     },
@@ -66,6 +48,12 @@
         "sort-packages": true,
         "allow-plugins": {
             "infection/extension-installer": true
+        }
+    },
+    "repositories": {
+        "contenir-preview": {
+            "type": "vcs",
+            "url": "https://github.com/contenir/contenir-preview"
         }
     }
 }
