@@ -1,0 +1,71 @@
+{
+    "name": "contenir/contenir-preview-laminas-mvc",
+    "description": "Laminas MVC renderer for the Contenir preview protocol: answers the CMS's signed previews at /api/resource/preview by rendering the record's page with its unsaved values.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["contenir", "cms", "preview", "laminas", "mvc"],
+    "require": {
+        "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+        "contenir/contenir-preview": "0.1.x-dev",
+        "laminas/laminas-eventmanager": "^3.13",
+        "laminas/laminas-http": "^2.19",
+        "laminas/laminas-mvc": "^3.7",
+        "laminas/laminas-router": "^3.13",
+        "laminas/laminas-servicemanager": "^3.22",
+        "laminas/laminas-view": "^2.30",
+        "psr/clock": "^1.0",
+        "psr/container": "^1.1 || ^2.0",
+        "psr/simple-cache": "^3.0"
+    },
+    "require-dev": {
+        "contenir/contenir-qa-tools": "0.1.x-dev",
+        "infection/infection": "^0.35.6",
+        "laminas/laminas-modulemanager": "^2.15",
+        "phpunit/phpunit": "^11.5"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../contenir-preview",
+            "canonical": false,
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../contenir-qa-tools",
+            "canonical": false,
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Contenir\\Preview\\Laminas\\Mvc\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Contenir\\Preview\\Laminas\\Mvc\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "laminas": {
+            "module": "Contenir\\Preview\\Laminas\\Mvc"
+        }
+    },
+    "scripts": {
+        "check": ["@cs-check", "@static-analysis", "@test", "@test-integration"],
+        "cs-check": ["mago format --check", "mago lint"],
+        "cs-fix": ["mago format", "mago lint --fix"],
+        "static-analysis": "mago analyze",
+        "test": "phpunit --colors=always --testsuite unit",
+        "test-integration": "phpunit --colors=always --testsuite integration",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "mutation-test": "infection"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
+    }
+}
