@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9eb84c7fa981b41a49470e942efadd7",
+    "content-hash": "149f83c522b8c1b415388b0f6740b14d",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/contenir/contenir-preview.git",
-                "reference": "2be31a3cf271fb810fa5980310115a58ea02434f"
+                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/2be31a3cf271fb810fa5980310115a58ea02434f",
-                "reference": "2be31a3cf271fb810fa5980310115a58ea02434f",
+                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/5507adbe71a333f594a4b313a75ee0ff89a33526",
+                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526",
                 "shasum": ""
             },
             "require": {
@@ -86,42 +86,7 @@
                     "Contenir\\Preview\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Contenir\\Preview\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "check": [
-                    "@cs-check",
-                    "@static-analysis",
-                    "@test",
-                    "@test-integration"
-                ],
-                "cs-check": [
-                    "mago format --check",
-                    "mago lint"
-                ],
-                "cs-fix": [
-                    "mago format",
-                    "mago lint --fix"
-                ],
-                "static-analysis": [
-                    "mago analyze"
-                ],
-                "test": [
-                    "phpunit --colors=always --testsuite unit"
-                ],
-                "test-integration": [
-                    "phpunit --colors=always --testsuite integration"
-                ],
-                "test-coverage": [
-                    "phpunit --colors=always --coverage-clover clover.xml"
-                ],
-                "mutation-test": [
-                    "infection"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -132,10 +97,10 @@
                 "preview"
             ],
             "support": {
-                "source": "https://github.com/contenir/contenir-preview/tree/0.1.x",
-                "issues": "https://github.com/contenir/contenir-preview/issues"
+                "issues": "https://github.com/contenir/contenir-preview/issues",
+                "source": "https://github.com/contenir/contenir-preview/tree/0.1.x"
             },
-            "time": "2026-10-17T12:43:29+00:00"
+            "time": "2026-10-17T21:54:26+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -5599,5 +5564,8 @@
         "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.3.99"
+    },
     "plugin-api-version": "2.6.0"
 }
