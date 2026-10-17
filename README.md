@@ -94,8 +94,16 @@ In a template, `$this->preview()` gives the same context, so a page can tell a p
 2. The resolved page becomes the request: a path or route is matched by the router as a visit to it
    would be (the request moves to that address, as a `GET`, with the token's post cleared); a
    handler is dispatched directly.
-3. The application dispatches and renders as normal.
-4. `EVENT_FINISH`: a preview's response gets the protocol's headers, replacing the page's own, and
+3. Page caches are asked to stand aside, because a cache that keys on a `GET` to a path would
+   otherwise see the preview as a visit to the page: it could serve the stored page in place of
+   the preview, or store the editor's unsaved page for visitors. The application triggers
+   `pagecache.disable` (`PreviewListener::CACHE_DISABLE_EVENT`), which a Laminas MVC page cache
+   such as `contenir/cache-laminas-mvc` listens for, and the request carries
+   `Cache-Control: no-cache, no-store` in place of the browser's own, so a cache that follows HTTP's
+   rules neither serves a stored copy nor stores the answer. A refusal is answered before this and
+   never reaches a cache.
+4. The application dispatches and renders as normal.
+5. `EVENT_FINISH`: a preview's response gets the protocol's headers, replacing the page's own, and
    the badge before `</body>`.
 
 ## Quality

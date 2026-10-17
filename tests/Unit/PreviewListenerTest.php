@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Contenir\Preview\Laminas\Mvc\Tests\Unit;
 
+use ArrayObject;
 use Contenir\Preview\Laminas\Mvc\PreviewListener;
 use Contenir\Preview\Laminas\Mvc\PreviewMarker;
 use Contenir\Preview\Laminas\Mvc\TargetMatcher;
@@ -16,12 +17,14 @@ use Contenir\Preview\Replay\InMemoryReplayGuard;
 use Contenir\Preview\Resolver\PathResolver;
 use Contenir\Preview\Resolver\ResolverRegistry;
 use Contenir\Preview\Token\TokenVerifier;
+use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\PhpEnvironment\Request as EnvironmentRequest;
 use Laminas\Http\Request;
 use Laminas\Http\Response;
+use Laminas\Mvc\ApplicationInterface;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
@@ -100,6 +103,29 @@ final class PreviewListenerTest extends TestCase
                 $event->getResponse(),
             ],
         );
+    }
+
+    #[Test]
+    public function asksNoPageCacheToStandAsideForARefusal(): void
+    {
+        $event = $this->posted(new Parameters(['contenir_preview' => Previews::token(new FrozenClock())]));
+        $event->getRequest()->setMethod(Request::METHOD_PUT);
+        $asked = $this->applicationOf($event);
+
+        $this->listener(new PreviewContext())->onRoute($event);
+
+        $this->assertSame([0, false], [$asked->count(), $event->getRequest()->getHeaders()->has('Cache-Control')]);
+    }
+
+    #[Test]
+    public function asksPageCachesToStandAsideForAPreview(): void
+    {
+        $event = $this->posted(new Parameters(['contenir_preview' => Previews::token(new FrozenClock())]));
+        $asked = $this->applicationOf($event);
+
+        $this->listener(new PreviewContext())->onRoute($event);
+
+        $this->assertSame([PreviewListener::CACHE_DISABLE_EVENT], $asked->getArrayCopy());
     }
 
     #[Test]
@@ -228,6 +254,23 @@ final class PreviewListenerTest extends TestCase
     }
 
     #[Test]
+    public function marksAPreviewNeitherToBeServedFromACacheNorStored(): void
+    {
+        $event   = $this->posted(new Parameters(['contenir_preview' => Previews::token(new FrozenClock())]));
+        $request = $event->getRequest();
+        $request->getHeaders()->addHeaderLine('cache-control', 'max-age=0');
+
+        $this->listener(new PreviewContext())->onRoute($event);
+
+        $values = [];
+        /** @var HeaderInterface $header */
+        foreach ($request->getHeaders() as $header) {
+            $values[] = "{$header->getFieldName()}: {$header->getFieldValue()}";
+        }
+        $this->assertSame(['Cache-Control: no-cache, no-store'], $values);
+    }
+
+    #[Test]
     public function opensAPostedPreviewAsAVisitToItsPage(): void
     {
         $context = new PreviewContext();
@@ -263,6 +306,29 @@ final class PreviewListenerTest extends TestCase
         $this->listener(new PreviewContext())->onRoute($event);
 
         $this->assertSame('/site/spa-rituals', $request->getUri()->getPath());
+    }
+
+    /**
+     * Gives the event an application, and returns each time its page caches are asked to stand
+     * aside.
+     *
+     * @return ArrayObject<int, string>
+     */
+    private function applicationOf(MvcEvent $event): ArrayObject
+    {
+        /** @var ArrayObject<int, string> $asked */
+        $asked  = new ArrayObject();
+        $events = new EventManager();
+        $events->attach(PreviewListener::CACHE_DISABLE_EVENT, static function (EventInterface $disable) use (
+            $asked,
+        ): void {
+            $asked->append($disable->getName());
+        });
+        $application = $this->createStub(ApplicationInterface::class);
+        $application->method('getEventManager')->willReturn($events);
+        $event->setApplication($application);
+
+        return $asked;
     }
 
     private function finished(string $content): MvcEvent

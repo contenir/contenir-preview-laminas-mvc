@@ -32,11 +32,30 @@ use function strcasecmp;
  * site's data layer lays the preview's values over the record. A refusal is answered at once with
  * the protocol's status and a short page saying why. As the response leaves, a preview gets the
  * protocol's headers and, unless configured away, a visible "Preview" badge.
+ *
+ * A page cache that keys on a GET to a path would otherwise see the preview as a visit to the
+ * page, and could serve the stored page in its place or store the editor's unsaved page for
+ * visitors. So an opened preview asks every page cache to stand aside, in two ways: the
+ * application triggers {@see self::CACHE_DISABLE_EVENT}, and the request carries
+ * {@see self::REQUEST_CACHE_CONTROL}, the HTTP way of saying neither serve nor store this.
  */
 final class PreviewListener extends AbstractListenerAggregate
 {
     /** Runs before the router (RouteListener listens at 1). */
     public const int PRIORITY = 100;
+
+    /**
+     * The event a Laminas MVC page cache listens for to leave the current request alone.
+     *
+     * @see \Contenir\Cache\Laminas\Mvc\Listener\CacheStrategy::EVENT_DISABLE
+     */
+    public const string CACHE_DISABLE_EVENT = 'pagecache.disable';
+
+    /**
+     * The request's Cache-Control once a preview opens: no stored copy may answer it (RFC 9111
+     * §5.2.1.4), and no part of its answer may be stored (§5.2.1.5).
+     */
+    public const string REQUEST_CACHE_CONTROL = 'no-cache, no-store';
 
     public function __construct(
         private readonly PreviewEntry $entry,
@@ -91,6 +110,10 @@ final class PreviewListener extends AbstractListenerAggregate
             return $this->refuse($event, $refusal);
         }
 
+        /** @var Headers $headers Without a name, a request's headers are all of them. */
+        $headers = $request->getHeaders();
+        $this->replace($headers, 'Cache-Control', self::REQUEST_CACHE_CONTROL);
+        $event->getApplication()?->getEventManager()->trigger(self::CACHE_DISABLE_EVENT);
         $event->setRouteMatch($match);
         $event->stopPropagation(true);
 
@@ -131,14 +154,18 @@ final class PreviewListener extends AbstractListenerAggregate
         return $response;
     }
 
+    private function replace(Headers $headers, string $name, string $value): void
+    {
+        foreach ($this->named($headers, $name) as $header) {
+            $headers->removeHeader($header);
+        }
+        $headers->addHeaderLine($name, $value);
+    }
+
     private function withPreviewHeaders(Response $response): void
     {
-        $headers = $response->getHeaders();
         foreach ($this->response->headers() as $name => $value) {
-            foreach ($this->named($headers, $name) as $header) {
-                $headers->removeHeader($header);
-            }
-            $headers->addHeaderLine($name, $value);
+            $this->replace($response->getHeaders(), $name, $value);
         }
     }
 }
