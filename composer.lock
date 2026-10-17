@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6954d14b6075c9f51b6e511d0e96ce6e",
+    "content-hash": "ae2dfb61f0865e0331344468ec93d786",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -61,12 +61,12 @@
             "dist": {
                 "type": "path",
                 "url": "../contenir-preview",
-                "reference": "359172e7e4bb9d227e7a499fa1ca79d46084e547"
+                "reference": "2be31a3cf271fb810fa5980310115a58ea02434f"
             },
             "require": {
                 "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
                 "psr/clock": "^1.0",
-                "psr/simple-cache": "^3.0"
+                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
                 "contenir/contenir-qa-tools": "0.1.x-dev",
