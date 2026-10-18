@@ -8,6 +8,7 @@ use Closure;
 use Contenir\Preview\Laminas\Mvc\Factory\ClockFactory;
 use Contenir\Preview\Laminas\Mvc\Module;
 use Contenir\Preview\Laminas\Mvc\PreviewMarker;
+use Contenir\Preview\Laminas\Mvc\TargetMatcher;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\FrozenClock;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\PageCache;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Previews;
@@ -18,6 +19,7 @@ use Contenir\Preview\PreviewRecord;
 use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Http\Response;
 use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
 use Laminas\Router\Module as RouterModule;
 use Laminas\Stdlib\Parameters;
 use Override;
@@ -48,6 +50,23 @@ final class PreviewApplicationTest extends TestCase
         return [
             'a cache listening for pagecache.disable' => [PageCache::listeningForDisable(...)],
             'a cache reading Cache-Control'           => [PageCache::readingCacheControl(...)],
+        ];
+    }
+
+    /**
+     * @return array<string, array{PreviewRecord, string}>
+     */
+    public static function previewsAndTheirRoutes(): array
+    {
+        return [
+            'a page at its path'      => [
+                new PreviewRecord('site.page.home', ['resource_id' => '101'], ['slug' => 'spa-rituals']),
+                'page',
+            ],
+            'a draft through a route' => [
+                new PreviewRecord('site.page.draft', [], ['title' => 'A draft']),
+                TargetMatcher::HANDLER_ROUTE,
+            ],
         ];
     }
 
@@ -100,6 +119,25 @@ final class PreviewApplicationTest extends TestCase
                 $response->getHeaders()->has('X-Robots-Tag'),
             ],
         );
+    }
+
+    #[Test]
+    #[DataProvider('previewsAndTheirRoutes')]
+    public function letsTheSitesOwnRouteListenersSeeThePreviewsRoute(PreviewRecord $record, string $route): void
+    {
+        $application = $this->configured();
+        $seen        = [];
+        $application->getEventManager()->attach(
+            MvcEvent::EVENT_ROUTE,
+            static function (MvcEvent $event) use (&$seen): void {
+                $seen[] = $event->getRouteMatch()?->getMatchedRouteName();
+            },
+            -100,
+        );
+
+        $this->preview($application, Previews::token(new FrozenClock(), $record));
+
+        $this->assertSame([$route], $seen);
     }
 
     /**

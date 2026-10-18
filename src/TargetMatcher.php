@@ -5,38 +5,51 @@ declare(strict_types=1);
 namespace Contenir\Preview\Laminas\Mvc;
 
 use Contenir\Preview\InvalidPreview;
+use Contenir\Preview\PreviewConfig;
 use Contenir\Preview\Resolver\PreviewTarget;
 use Laminas\Http\Request;
 use Laminas\Router\Exception\ExceptionInterface as RouterException;
-use Laminas\Router\RouteMatch;
+use Laminas\Router\Http\Literal;
 use Laminas\Router\RouteStackInterface;
 
 use function is_string;
 
+use const PHP_INT_MAX;
+
 /**
- * Turns the page a resolver names into the route match the application dispatches. A path is
- * matched by the router as a visit to it would be; a named route is assembled and matched the same
- * way; a handler is dispatched as the controller it names, with its parameters, and no route.
- * Matching a path or route moves the request to it, so the page sees its own address.
+ * Sets the request up so the application routes it to the page a resolver names, as it would a
+ * visit, and every route listener (the site's own among them) runs as it would then. A path, or a
+ * named route assembled to one, becomes the request's address, so the page sees its own URL; the
+ * router must have a page there. A handler, which no route reaches, gets a route of its own at the
+ * preview endpoint for this request only, dispatching it with its parameters.
  */
 final readonly class TargetMatcher
 {
+    /** The name of the route a handler is dispatched through */
+    public const string HANDLER_ROUTE = 'contenir-preview';
+
     /**
      * @throws InvalidPreview When the site has no page there
      */
-    public function match(PreviewTarget $target, RouteStackInterface $router, Request $request): RouteMatch
+    public function prepare(PreviewTarget $target, RouteStackInterface $router, Request $request): void
     {
         if (null !== $target->handler) {
-            return new RouteMatch([...$target->params, 'controller' => $target->handler]);
+            $router->addRoute(
+                self::HANDLER_ROUTE,
+                Literal::factory([
+                    'route'    => PreviewConfig::ENDPOINT,
+                    'defaults' => [...$target->params, 'controller' => $target->handler],
+                ]),
+                PHP_INT_MAX,
+            );
+
+            return;
         }
 
         $request->getUri()->setPath($this->path($target, $router, $request));
-
-        return (
-            $router->match($request) ?? throw InvalidPreview::notPreviewable(
-                'The site has no page at this record\'s address.',
-            )
-        );
+        if (null === $router->match($request)) {
+            throw InvalidPreview::notPreviewable('The site has no page at this record\'s address.');
+        }
     }
 
     /**
