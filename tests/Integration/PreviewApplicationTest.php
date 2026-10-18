@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Contenir\Preview\Laminas\Mvc\Tests\Integration;
 
 use Closure;
-use Contenir\Preview\Laminas\Mvc\Factory\ClockFactory;
+use Contenir\Preview\Container\ClockFactory;
 use Contenir\Preview\Laminas\Mvc\Module;
-use Contenir\Preview\Laminas\Mvc\PreviewMarker;
 use Contenir\Preview\Laminas\Mvc\TargetMatcher;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\FrozenClock;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\PageCache;
@@ -15,6 +14,7 @@ use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Previews;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Site\DraftResolver;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Site\Module as SiteModule;
 use Contenir\Preview\Laminas\Mvc\Tests\Trait\TempDirectoryTrait;
+use Contenir\Preview\PreviewMarker;
 use Contenir\Preview\PreviewRecord;
 use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Http\Response;

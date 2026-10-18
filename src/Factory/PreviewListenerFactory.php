@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Contenir\Preview\Laminas\Mvc\Factory;
 
-use Contenir\Preview\Laminas\Mvc\InvalidConfiguration;
+use Contenir\Preview\Container\InvalidConfiguration;
+use Contenir\Preview\Container\PreviewOptions;
+use Contenir\Preview\Container\Service;
 use Contenir\Preview\Laminas\Mvc\PreviewListener;
-use Contenir\Preview\Laminas\Mvc\PreviewOptions;
 use Contenir\Preview\Laminas\Mvc\TargetMatcher;
 use Contenir\Preview\PreviewContext;
 use Contenir\Preview\PreviewEntry;

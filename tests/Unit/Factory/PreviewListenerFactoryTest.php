@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Contenir\Preview\Laminas\Mvc\Tests\Unit\Factory;
 
+use Contenir\Preview\Container\PreviewOptions;
 use Contenir\Preview\Laminas\Mvc\Factory\PreviewListenerFactory;
-use Contenir\Preview\Laminas\Mvc\PreviewMarker;
-use Contenir\Preview\Laminas\Mvc\PreviewOptions;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\ArrayContainer;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\FrozenClock;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Previews;
 use Contenir\Preview\PreviewContext;
 use Contenir\Preview\PreviewEntry;
+use Contenir\Preview\PreviewMarker;
 use Contenir\Preview\PreviewResponse;
 use Contenir\Preview\Replay\InMemoryReplayGuard;
 use Contenir\Preview\Resolver\ResolverRegistry;

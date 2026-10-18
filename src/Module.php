@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Contenir\Preview\Laminas\Mvc;
 
+use Contenir\Preview\Container\InvalidConfiguration;
+use Contenir\Preview\Container\Service;
 use Laminas\Mvc\MvcEvent;
 use Psr\Container\ContainerExceptionInterface;
 
@@ -39,6 +41,6 @@ final class Module
             return;
         }
 
-        Factory\Service::get($services, PreviewListener::class)->attach($application->getEventManager());
+        Service::get($services, PreviewListener::class)->attach($application->getEventManager());
     }
 }

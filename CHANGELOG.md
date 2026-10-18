@@ -13,8 +13,10 @@ adheres to [Semantic Versioning](https://semver.org/).
   page that shows the record, which the application routes and renders as it
   always would (every route listener included), and answers with the
   protocol's headers and a visible "Preview" badge.
-- Section resolvers from configuration: a path, a named route, or a resolver
-  service, which may dispatch a handler without routing.
+- The services contenir-preview's `ConfigProvider` builds from the
+  `contenir_preview` configuration, registered with the application's: each
+  section's resolver a path, a named route, or a resolver service, which may
+  dispatch a handler without routing.
 - A `preview()` view helper and controller plugin for laying the preview's
   values over the record a page loads.
 - Page caches stand aside for a preview: the module triggers

@@ -6,12 +6,12 @@ namespace Contenir\Preview\Laminas\Mvc\Tests\Unit;
 
 use ArrayObject;
 use Contenir\Preview\Laminas\Mvc\PreviewListener;
-use Contenir\Preview\Laminas\Mvc\PreviewMarker;
 use Contenir\Preview\Laminas\Mvc\TargetMatcher;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\FrozenClock;
 use Contenir\Preview\Laminas\Mvc\Tests\TestAsset\Previews;
 use Contenir\Preview\PreviewContext;
 use Contenir\Preview\PreviewEntry;
+use Contenir\Preview\PreviewMarker;
 use Contenir\Preview\PreviewResponse;
 use Contenir\Preview\Replay\InMemoryReplayGuard;
 use Contenir\Preview\Resolver\PathResolver;

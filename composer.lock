@@ -61,17 +61,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/contenir/contenir-preview.git",
-                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526"
+                "reference": "6d11419093dc26c12c813d2115772c8340163686"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/5507adbe71a333f594a4b313a75ee0ff89a33526",
-                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526",
+                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/6d11419093dc26c12c813d2115772c8340163686",
+                "reference": "6d11419093dc26c12c813d2115772c8340163686",
                 "shasum": ""
             },
             "require": {
                 "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
                 "psr/clock": "^1.0",
+                "psr/container": "^1.1 || ^2.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
@@ -100,7 +101,7 @@
                 "issues": "https://github.com/contenir/contenir-preview/issues",
                 "source": "https://github.com/contenir/contenir-preview/tree/0.1.x"
             },
-            "time": "2026-10-17T21:54:26+00:00"
+            "time": "2026-10-18T01:29:59+00:00"
         },
         {
             "name": "laminas/laminas-config",
