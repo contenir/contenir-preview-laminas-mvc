@@ -39,6 +39,8 @@ return [
 ```
 
 `issuer`, `audience`, `secrets` and `sign_with` are the same on the CMS and the site.
+The module registers the services contenir-preview's `ConfigProvider` builds from these settings,
+and its own listener, view helper and controller plugin.
 
 The CMS chooses which sections offer a Preview; the site says, per section, which page shows one of
 its records. Each resolver is one of:

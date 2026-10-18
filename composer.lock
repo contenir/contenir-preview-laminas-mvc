@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2411c78821670a28ef6843c15dee9207",
+    "content-hash": "4d2015de3f643570a688602dc11a9d48",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -57,21 +57,22 @@
         },
         {
             "name": "contenir/contenir-preview",
-            "version": "0.1.x-dev",
+            "version": "dev-feat/container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/contenir/contenir-preview.git",
-                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526"
+                "reference": "3a4cc5193cd59c1c1dbca28703c73659cc9a51a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/5507adbe71a333f594a4b313a75ee0ff89a33526",
-                "reference": "5507adbe71a333f594a4b313a75ee0ff89a33526",
+                "url": "https://api.github.com/repos/contenir/contenir-preview/zipball/3a4cc5193cd59c1c1dbca28703c73659cc9a51a1",
+                "reference": "3a4cc5193cd59c1c1dbca28703c73659cc9a51a1",
                 "shasum": ""
             },
             "require": {
                 "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
                 "psr/clock": "^1.0",
+                "psr/container": "^1.1 || ^2.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
@@ -79,7 +80,6 @@
                 "infection/infection": "^0.35.6",
                 "phpunit/phpunit": "^11.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -98,9 +98,9 @@
             ],
             "support": {
                 "issues": "https://github.com/contenir/contenir-preview/issues",
-                "source": "https://github.com/contenir/contenir-preview/tree/0.1.x"
+                "source": "https://github.com/contenir/contenir-preview/tree/feat/container"
             },
-            "time": "2026-10-17T21:54:26+00:00"
+            "time": "2026-10-18T00:22:59+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -5552,7 +5552,14 @@
             "time": "2026-10-05T23:14:19+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "contenir/contenir-preview",
+            "version": "dev-feat/container",
+            "alias": "0.1.x-dev",
+            "alias_normalized": "0.1.9999999.9999999-dev"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "contenir/contenir-preview": 20,

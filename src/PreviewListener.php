@@ -8,6 +8,7 @@ use Contenir\Preview\InvalidPreview;
 use Contenir\Preview\PreviewConfig;
 use Contenir\Preview\PreviewContext;
 use Contenir\Preview\PreviewEntry;
+use Contenir\Preview\PreviewMarker;
 use Contenir\Preview\PreviewResponse;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;

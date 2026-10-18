@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Contenir\Preview\Laminas\Mvc\Factory;
 
+use Contenir\Preview\Container\InvalidConfiguration;
+use Contenir\Preview\Container\Service;
 use Contenir\Preview\Laminas\Mvc\Controller\Plugin\Preview as PreviewPlugin;
-use Contenir\Preview\Laminas\Mvc\InvalidConfiguration;
 use Contenir\Preview\Laminas\Mvc\View\Helper\Preview as PreviewHelper;
 use Contenir\Preview\PreviewContext;
 use Psr\Container\ContainerExceptionInterface;
