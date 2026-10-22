@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.1.0] - 2026-10-22
 
 ### Added
 
@@ -21,3 +21,5 @@ adheres to [Semantic Versioning](https://semver.org/).
   values over the record a page loads.
 - Page caches stand aside for a preview: the module triggers
   `pagecache.disable` and marks the request `Cache-Control: no-cache, no-store`.
+- Requires contenir-preview 0.1.0 or later, so a site installs the renderer
+  from released packages alone.
