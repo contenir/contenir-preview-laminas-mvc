@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2411c78821670a28ef6843c15dee9207",
+    "content-hash": "5aa1b6528fbbeac3613a3d1c3cdcda83",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -57,7 +57,7 @@
         },
         {
             "name": "contenir/contenir-preview",
-            "version": "0.1.x-dev",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/contenir/contenir-preview.git",
@@ -80,7 +80,6 @@
                 "infection/infection": "^0.35.6",
                 "phpunit/phpunit": "^11.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -99,7 +98,7 @@
             ],
             "support": {
                 "issues": "https://github.com/contenir/contenir-preview/issues",
-                "source": "https://github.com/contenir/contenir-preview/tree/0.1.x"
+                "source": "https://github.com/contenir/contenir-preview/tree/v0.1.0"
             },
             "time": "2026-10-18T01:29:59+00:00"
         },
@@ -1662,12 +1661,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/contenir/contenir-qa-tools.git",
-                "reference": "b8d822b1c7370e127665cf4766d3ad77c42471ff"
+                "reference": "24625ab4c8d781568383c1b7b697e9df6096e914"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contenir/contenir-qa-tools/zipball/b8d822b1c7370e127665cf4766d3ad77c42471ff",
-                "reference": "b8d822b1c7370e127665cf4766d3ad77c42471ff",
+                "url": "https://api.github.com/repos/contenir/contenir-qa-tools/zipball/24625ab4c8d781568383c1b7b697e9df6096e914",
+                "reference": "24625ab4c8d781568383c1b7b697e9df6096e914",
                 "shasum": ""
             },
             "require": {
@@ -1696,7 +1695,7 @@
             "support": {
                 "source": "https://github.com/contenir/contenir-qa-tools"
             },
-            "time": "2026-10-12T10:46:59+00:00"
+            "time": "2026-11-04T00:20:47+00:00"
         },
         {
             "name": "fidry/cpu-core-counter",
@@ -5556,7 +5555,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "contenir/contenir-preview": 20,
         "contenir/contenir-qa-tools": 20
     },
     "prefer-stable": false,
@@ -5564,9 +5562,9 @@
     "platform": {
         "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.3.99"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

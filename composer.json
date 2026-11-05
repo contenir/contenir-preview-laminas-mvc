@@ -6,7 +6,7 @@
     "keywords": ["contenir", "cms", "preview", "laminas", "mvc"],
     "require": {
         "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
-        "contenir/contenir-preview": "0.1.x-dev",
+        "contenir/contenir-preview": "^0.1.0",
         "laminas/laminas-eventmanager": "^3.13",
         "laminas/laminas-http": "^2.19",
         "laminas/laminas-mvc": "^3.8",
